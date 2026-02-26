@@ -19,7 +19,7 @@ public abstract class Animal
   }
   public virtual string GetInfo()
   {
-    return $"Name: {Name}, Age: {Age}, Habitat: {Habitat}, Diet: {DietType}, Color: {Color}, Weight: {Weight} kg";
+    return $" Name: {Name}, Age: {Age}, Habitat: {Habitat}, Diet: {DietType}, Color: {Color}, Weight: {Weight} kg ";
   }
   public abstract string TypeName { get; }
 }
@@ -28,7 +28,7 @@ public abstract class Animal
     public bool HasFur { get; }
     public override string TypeName
     {
-      get { return "Mammal"; }
+      get { return " Mammal"; }
     }
     public Mammal(string name, int age, string habitat, string dietType, string color, double weight, bool hasFur)
       : base(name, age, habitat, dietType, color, weight)
@@ -37,9 +37,9 @@ public abstract class Animal
     }
     public override string GetInfo()
     {
-      string furText = HasFur ? "yes" : "no";
+      string furString = HasFur ? "yes" : "no";
 
-      return $"Type: {TypeName}, {base.GetInfo()}, Has Fur: {furText}";
+      return $" Type: {TypeName}, {base.GetInfo()}, Has Fur: {furString} ";
     }
 }
 public class Bird : Animal
@@ -47,7 +47,7 @@ public class Bird : Animal
   public double WingSpan { get; }
   public override string TypeName
   {
-    get { return "Bird"; }
+    get { return " Bird"; }
   }
   public Bird(string name, int age, string habitat, string dietType, string color, double weight, double wingSpan)
     : base(name, age, habitat, dietType, color, weight)
@@ -56,7 +56,7 @@ public class Bird : Animal
   }
   public override string GetInfo()
   {
-    return $"Type: {TypeName}, {base.GetInfo()}, Wingspan: {WingSpan} m";
+    return $" Type: {TypeName}, {base.GetInfo()}, Wingspan: {WingSpan} m ";
   }
 }
 public class Fish : Animal
@@ -64,7 +64,7 @@ public class Fish : Animal
   public string WaterType { get; }
   public override string TypeName
   {
-    get { return "Fish"; }
+    get { return " Fish"; }
   }
   public Fish(string name, int age, string habitat, string dietType, string color, double weight, string waterType)
     : base(name, age, habitat, dietType, color, weight)
@@ -73,7 +73,7 @@ public class Fish : Animal
   }
   public override string GetInfo()
   {
-    return $" Type: {TypeName}, {base.GetInfo()}, Water Type: {WaterType}";
+    return $" Type: {TypeName}, {base.GetInfo()}, Water Type: {WaterType} ";
   }
 }
 public class Reptile : Animal
@@ -81,7 +81,7 @@ public class Reptile : Animal
   public bool IsVenomous { get; }
   public override string TypeName
   {
-    get { return "Reptile"; }
+    get { return " Reptile"; }
   }
   public Reptile(string name, int age, string habitat, string dietType, string color, double weight, bool isVenomous)
     : base(name, age, habitat, dietType, color, weight)
@@ -100,7 +100,7 @@ public class Amphibian : Animal
   public string SkinMoisture { get; }
   public override string TypeName
   {
-    get { return "Amphibian"; }
+    get { return " Amphibian"; }
   }
   public Amphibian(string name, int age, string habitat, string dietType, string color, double weight, string skinMoisture)
     : base(name, age, habitat, dietType, color, weight)
@@ -126,8 +126,9 @@ public sealed class AnimalManager
     {
       if (s_instance == null)
       {
-            s_instance = new AnimalManager();
+        s_instance = new AnimalManager();
       }
+
       return s_instance;
     }
   }
@@ -146,7 +147,7 @@ public void ShowAllAnimals()
 
   for (int animalIndex = 0; animalIndex < animals.Count; ++animalIndex)
   {
-    Console.WriteLine($"[{animalIndex}] {animals[animalIndex].GetInfo()}");
+    Console.WriteLine($" [{animalIndex}] {animals[animalIndex].GetInfo()} ");
   }
 }
 public void ShowAnimalByName(string name)
@@ -161,13 +162,13 @@ public void ShowAnimalByName(string name)
     }
   }
 
-  Console.WriteLine("Animal with that name not found.");
+  Console.WriteLine(" Animal with that name not found. ");
 }
 public void RunMenu()
 {
   while (true)
   {
-    Console.WriteLine(" \nMenu: ");
+    Console.WriteLine(" Menu: ");
     Console.WriteLine(" 1 - Add animal ");
     Console.WriteLine(" 2 - Show all animals ");
     Console.WriteLine(" 3 - Show animal by name ");
@@ -194,7 +195,7 @@ public void RunMenu()
       break;
 
     case "3":
-      Console.Write("Enter name: ");
+      Console.Write(" Enter name: ");
 
       string name = Console.ReadLine();
 
@@ -203,7 +204,7 @@ public void RunMenu()
       break;
 
     default:
-      Console.WriteLine("Unknown command.");
+      Console.WriteLine(" Unknown command. ");
 
       break;
     }
@@ -211,6 +212,8 @@ public void RunMenu()
 }
 private void AddAnimalViaMenu()
 {
+  Console.WriteLine();
+
   Console.WriteLine(" Select animal type: ");
   Console.WriteLine(" 1 - Mammal ");
   Console.WriteLine(" 2 - Bird ");
@@ -221,12 +224,16 @@ private void AddAnimalViaMenu()
 
   string type = Console.ReadLine();
 
+  Console.WriteLine();
+
   string name = ReadString(" Name: ");
   int age = ReadInt(" Age: ");
   string habitat = ReadString(" Habitat: ");
   string dietType = ReadString(" Diet type: ");
   string color = ReadString(" Color: ");
   double weight = ReadDouble(" Weight (kg): ");
+
+  Console.WriteLine();
 
   Animal animal;
 
@@ -269,73 +276,75 @@ private void AddAnimalViaMenu()
 
     default:
       Console.WriteLine(" Unknown animal type. ");
-
+    
       return;
   }
-
+  
   AddAnimal(animal);
   Console.WriteLine(" Animal added. ");
 }
 
-private string ReadString(string prompt)
+private string ReadString(string inputPrompt)
 {
   while (true)
   {
-    Console.Write(prompt);
+    Console.Write(inputPrompt);
 
-    string input = Console.ReadLine();
+    string userInput = Console.ReadLine();
 
-    if (!string.IsNullOrWhiteSpace(input))
+    if (!string.IsNullOrWhiteSpace(inputPrompt))
 
-      return input.Trim();
+      return userInput.Trim();
 
-    Console.WriteLine("Input cannot be empty.");
+    Console.WriteLine(" Input cannot be empty. ");
   }
 }
 
-private int ReadInt(string prompt)
+private int ReadInt(string inputPrompt)
 {
   while (true)
   {
-    Console.Write(prompt);
-    if (int.TryParse(Console.ReadLine(), out int value) && value >= 0)
-      return value;
+    Console.Write(inputPrompt);
+
+    if (int.TryParse(Console.ReadLine(), out int result) && result >= 0)
+      return result;
 
       Console.WriteLine(" Please enter a valid non-negative integer. ");
   }
 }
 
-private double ReadDouble(string prompt)
+private double ReadDouble(string inputPrompt)
 {
   while (true)
   {
-    Console.Write(prompt);
-    if (double.TryParse(Console.ReadLine(), out double value) && value >= 0)
+    Console.Write(inputPrompt);
 
-      return value;
+    if (double.TryParse(Console.ReadLine(), out double result) && result >= 0)
+
+      return result;
 
     Console.WriteLine(" Please enter a valid non-negative number. ");
   }
 }
 
-private bool ReadBool(string prompt)
+private bool ReadBool(string inputPrompt)
 {
   while (true)
   {
-    Console.Write(prompt);
+    Console.Write(inputPrompt);
 
-    string input = Console.ReadLine();
+    string userInput = Console.ReadLine();
 
-    if (input != null)
+    if (userInput != null)
     {
-      input = input.Trim().ToLower();
+      userInput = userInput.Trim().ToLower();
     }
 
-    if (input == "yes")
+    if (userInput == "yes")
     {
       return true;
     }
-    if (input == "no")
+    if (userInput == "no")
     {
       return true;
     }
